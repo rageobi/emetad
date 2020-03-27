@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Signup Emetad</title>
+<style type="text/css">
+body{
+margin: 100px;
+text-align: center;
+}
+input{
+width:230px;}
+</style>
+</head>
+<body>
+<fieldset>
+<legend><h1><b>Emetad signup page</b></h1></legend>
+<form name="loginForm" method="post" action="signUpController">
+<table align="center">
+<tr>
+<td><input type="text" name="fnameInput" placeholder="First Name" required></td>
+<td><input type="text" name="lnameInput" placeholder="Last Name" required></td>
+</tr>
+<tr>
+<td><input type="text" name="emailInput" placeholder="Enter your Email address" required></td>
+<td><label style="margin-left:5px;">Gender<input style="width:15px;" type="radio" name="maleRadio" checked>Male
+<input  style="width:15px;" type="radio" name="femaleRadio">Female
+<input type="radio"  style="width:15px;" name="otherRadio" >Other</label>
+</td>
+</tr>
+<tr>
+<td><input type="Password" name="pwdInput" placeholder="Enter your password" required></td>
+<td><input type="Password" name="pwdRptInput" placeholder="Re-type your password"required></td>
+</tr>
+<tr>
+<td><input type="text" name="stateInput" placeholder="Enter the State you are in"></td>
+<td><input type="text" name="cityInput" placeholder="Enter the City you are in"></td>
+</tr>
+<tr>
+<td><input type="text" name="phoneInput" placeholder="Enter your Mobile number"></td>
+<td><input type="text" name="dobInput" placeholder="Date of Birth" onfocus="(this.type='date')"></td>
+</tr>
+</table>
+<label style="width:200px;"><p>Which gender are you interested in?  <select id="intSelect">
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+  <option value="Others">Others</option>
+</select></p></label>
+<div style="text-align: center;">
+<input type="Reset">
+<input type="submit" value="Signup">
+</div>
+</form>
+</fieldset>
+</body>
+</html>
