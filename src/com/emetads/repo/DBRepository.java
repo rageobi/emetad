@@ -1,4 +1,7 @@
 package com.emetads.repo;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,22 +18,28 @@ private Connection dbConnection;
 		dbConnection = DBUtil.getConnection();
 	}
 	
-	public ResultSet findByUserName(String userID) {
+	public boolean checkUserPresence(String email) {
 		ResultSet result=null;
 		try {
-			PreparedStatement prepStatement = dbConnection.prepareStatement("Select * from usertable where USER_ID= ?");
-			prepStatement.setInt(1,Integer.parseInt(userID));
+			PreparedStatement prepStatement = dbConnection.prepareStatement("Select count(*) from usertable where email= ?");
+			prepStatement.setString(1,email);
 			result = prepStatement.executeQuery();
-			
+			if (result != null) {	
+				while (result.next()) {
+					if (result.getInt(1)>0) {
+						return true;
+					}				
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result;
+		return false;
 	}
 	
-	public int signupUser(String fName,String lName, String Email, String gender, String password, String state, String city, String mobileNumber, Date dob, String iGender) {
+	public int signupUser(String fName,String lName, String Email, String gender, String password, String state, String city, String mobileNumber, Date dob, String iGender, InputStream inputsream) {
 		try {
-			PreparedStatement prepStatement = dbConnection.prepareStatement("INSERT INTO usertable (EMAIL,create_date,last_name,first_name,city,state,phone,dob,gender,interested_in,password) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement prepStatement = dbConnection.prepareStatement("INSERT INTO usertable (EMAIL,create_date,last_name,first_name,city,state,phone,dob,gender,interested_in,password,dp_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 			
 			prepStatement.setString(1, Email);
 			prepStatement.setDate(2, new java.sql.Date(dob.getTime()));
@@ -43,12 +52,34 @@ private Connection dbConnection;
 			prepStatement.setString(9, gender);
 			prepStatement.setString(10, iGender);
 			prepStatement.setString(11, password);
+			
+			 if (inputsream != null) {
+	                // fetches input stream of the upload file for the blob column
+				 prepStatement.setBinaryStream(12, inputsream);
+	            }
 			//prepStatement.setInt(12, 1);
 			return prepStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
 		return 0;
+	}
+	public boolean validateUserCredentials(String email, String password) {
+		try {
+			PreparedStatement prepStatement = dbConnection.prepareStatement("select password from usertable where email = ?");
+			prepStatement.setString(1, email);			
+			ResultSet result = prepStatement.executeQuery();
+			if (result != null) {
+				while (result.next()) {
+					if (result.getString(1).equals(password)) {
+						return true;
+					}
+				}				
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 }
