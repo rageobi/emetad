@@ -1,12 +1,15 @@
 package com.emetads.controller;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Base64;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,53 +24,74 @@ import com.emetads.repo.DBRepository;
 public class loginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBRepository userRepository;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public loginController() {
-        super();
-        // TODO Auto-generated constructor stub
-        userRepository = new DBRepository();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public loginController() {
+		super();
+		// TODO Auto-generated constructor stub
+		userRepository = new DBRepository();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String email= request.getParameter("emailInput");
-		String password= request.getParameter("pwdInput");
-		
-		if(userRepository.validateUserCredentials(email, password)) {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", "Pankaj");
-			//setting session to expiry in 30 mins
-			session.setMaxInactiveInterval(30*60);
-			Cookie userName = new Cookie("email", email);
-			userName.setMaxAge(30*60);
-			response.addCookie(userName);
-			//response.sendRedirect("signup.jsp");
-			//Get the encoded URL string
-			String encodedURL = response.encodeRedirectURL("signup.html");
+		String email = request.getParameter("emailInput");
+		String password = request.getParameter("pwdInput");
+
+		if (userRepository.validateUserCredentials(email, password)) {
+			HttpSession session = request.getSession(true);
+			User user = null;
+			ResultSet result = userRepository.fetchUserDetails(email);
+			try {
+				user = new User(result);
+				user.getdisplayPicture();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			byte[] buffer = new byte[4096];
+			int bytesRead = -1;
+
+			while ((bytesRead = user.getdisplayPicture().read(buffer)) != -1) {
+				outputStream.write(buffer, 0, bytesRead);
+			}
+
+			byte[] imageBytes = outputStream.toByteArray();
+			String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+
+			session.setAttribute("user", user);
+			session.setAttribute("DisplayPic", base64Image);
+
+			session.setMaxInactiveInterval(30 * 60);
+			String encodedURL = response.encodeRedirectURL("main.jsp");
 			response.sendRedirect(encodedURL);
-		}else if(userRepository.checkUserPresence(email)){
+		} else if (userRepository.checkUserPresence(email)) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
-			PrintWriter out= response.getWriter();
+			PrintWriter out = response.getWriter();
 			out.println("<div class=\"text-center\"><font color=red>Wrong Password entered</font></div>");
 			rd.include(request, response);
-		}
-		else {
+		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/signup.html");
-			PrintWriter out= response.getWriter();
-			out.println("<div class=\"text-center\"><font color=red>Looks like you don't have an account! Please go ahead and signup below</font></div>");
+			PrintWriter out = response.getWriter();
+			out.println(
+					"<div class=\"text-center\"><font color=red>Looks like you don't have an account! Please go ahead and signup below</font></div>");
 			rd.include(request, response);
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

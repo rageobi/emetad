@@ -3,8 +3,6 @@ package com.emetads.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -51,7 +49,7 @@ public class signUpController extends HttpServlet {
 		String mobileNumber= request.getParameter("phoneInput");
 		String dob= request.getParameter("dobInput");
 		String iGender= request.getParameter("iGenderInput");
-		
+
 		InputStream inputStream = null;
         Part filePart = request.getPart("dpInput");
         inputStream = filePart.getInputStream();
@@ -62,7 +60,7 @@ public class signUpController extends HttpServlet {
 			//request.getSession().setAttribute(additionalMessage, "Not successfully signedup. Please try again");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
 			PrintWriter out= response.getWriter();
-			out.println("<div class=\"text-center\"><font color=red> Email Id exists. Please login</font></div>");
+			out.println("<div class=\"text-center\"><font color=red>Email Id exists. Please login</font></div>");
 			rd.include(request, response);}
 		else {
 		int result = userRepository.signupUser(firstName,lastName,email,gender,password,state,city,mobileNumber,dobD,iGender,inputStream);
@@ -71,7 +69,7 @@ public class signUpController extends HttpServlet {
 			//request.getSession().setAttribute(additionalMessage, "Not successfully signedup. Please try again");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/signup.html");
 			PrintWriter out= response.getWriter();
-			out.println("<div class=\"text-center\"><font color=red> Not successfully signedup. Please try again</font></div>");
+			out.println("<div class=\"text-center\"><font color=red>Not successfully signedup. Please try again</font></div>");
 			rd.include(request, response);
 		}
 		else {

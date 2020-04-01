@@ -3,89 +3,138 @@
 <head>
 <meta charset="utf-8">
 <title>Signup Emetad</title>
-  <link  href="css/signup.css" rel="stylesheet">
-  <link  href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="js/signup.js" type="text/javascript"></script>
+<link href="css/signup.css" rel="stylesheet">
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="js/signup.js" type="text/javascript"></script>
 </head>
 <body>
-<div class="container signup">
-  <div class="row">
-    <div class="col-md-3 signup-left">
-      <img src="content/img/undraw_love_xfcv.svg" alt="" />
-      <h3>Welcome</h3>
-      <p>Find your true love. It's just a click away</p>
-      <input type="submit" name="" value="Login" onclick="window.location='login.html';"/><br />
-    </div>
-    <div class="col-md-9 signup-right">
-      <h3 class="signup-heading-three">Signup to Emetad</h3>
-      <div class="signup-form">
-        <form name="loginForm" id="loginForm" method="post" action="signUpController" onSubmit="return validate();" enctype='multipart/form-data'>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control form-control-sm" name="fnameInput" placeholder="First Name" required>
-            </div>
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control form-control-sm" name="lnameInput" placeholder="Last Name" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control form-control-sm" id="emailInput" name="emailInput" placeholder="Enter your Email address" required>
-            </div>
-            <div class="form-check form-check-inline"><label class="col-form-label for="genderRadio"><b>Gender:</b>&nbsp;&nbsp;</label><input style="width:15px;" type="radio" class="form-check-input" name="genderRadio" id="maleRadio" value="M" checked>Male </div>
-            <div class="form-check form-check-inline"><input style="width:15px;" class="form-check-input" type="radio" name="genderRadio" id="femaleRadio" value="F">Female</div>
-            <div class="form-check form-check-inline"><input type="radio" class="form-check-input" style="width:15px;" name="genderRadio" id="otherRadio" value="O">Other</div>
-            <div class="form-check form-check-inline"><input type="hidden" id="genderInput" name="genderInput" value="M"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <input type="Password" class="form-control form-control-sm" id="pwdInput" name="pwdInput" placeholder="Enter your password" onkeyup="validatePassword();" required>
-            </div>
-            <div class="form-group col-md-6">
-              <input type="Password" class="form-control form-control-sm" id="pwdRptInput" name="pwdRptInput" placeholder="Re-type your password" onkeyup="validatePassword();" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control form-control-sm" name="stateInput" placeholder="Enter the State you are in">
-            </div>
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control form-control-sm" name="cityInput" placeholder="Enter the City you are in">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control form-control-sm" name="phoneInput" placeholder="Enter your Mobile number">
-            </div>
-            <div class="form-group col-md-6">
-              <input type="text" class="form-control form-control-sm" id="dobInput" name="dobInput" placeholder="Date of Birth" onfocus="(this.type='date')" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group form-inline col-md-2">
-              <label class="col-form-label" for="intSelect"><b>Upload your Photo:</b>&nbsp;&nbsp;</label></div>
-            <div class="form-group form-inline col-md-4"><input type="file" class="form-control-file form-control-sm" name="dpInput" id="dpInput" onChange="validateFileType()" accept="image/x-png,image/jpeg" required="required" />
-            </div>
-            <div class="form-group form-inline ">
-              <label class="col-form-label" for="intSelect">&nbsp;&nbsp;<b>Looking for:</b>&nbsp;&nbsp;&nbsp;</label></div>
-            <div class="form-group form-inline col-md-2	"> <select class="form-control form-control-sm mb-2" id="intSelect">
-                <option value="M">Male</option>
-                <option value="F">Female</option>
-                <option value="O">Others</option>
-              </select>
-              <input type="hidden" id="iGenderInput" name="iGenderInput" value="M">
-            </div>
-          </div>
-          <div class="alert alert-danger collapse" id="signupAlert"role="alert"></div>
-          <div class="text-center">
-            <button type="reset" class="btn btn-primary mt-3" onclick="Resetform()">Reset</button>
-            <button type="submit" class="btn btn-primary mt-3">Submit</button></div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+	<div class="container signup">
+		<div class="row">
+			<div class="col-md-3 signup-left">
+				<img src="content/img/undraw_love_xfcv.svg" alt="" />
+				<h3>Welcome</h3>
+				<p>Find your true love. It's just a click away</p>
+				<input type="submit" name="" value="Login"
+					onclick="window.location='login.html';" /><br />
+			</div>
+			<div class="col-md-9 signup-right">
+				<h3 class="signup-heading-three">Signup to Emetad</h3>
+				<div class="signup-form">
+					<form name="loginForm" id="loginForm" method="post"
+						action="signUpController" onSubmit="return validate();"
+						enctype='multipart/form-data'>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control form-control-sm"
+									name="fnameInput" placeholder="First Name" required>
+							</div>
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control form-control-sm"
+									name="lnameInput" placeholder="Last Name" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control form-control-sm"
+									id="emailInput" name="emailInput"
+									placeholder="Enter your Email address" required>
+							</div>
+							<div class="form-check form-check-inline">
+								<label class="col-form-label for="genderRadio"><b>Gender:</b>&nbsp;&nbsp;</label><input
+									style="width: 15px;" type="radio" class="form-check-input"
+									name="genderRadio" id="maleRadio" value="M" checked>Male
+							</div>
+							<div class="form-check form-check-inline">
+								<input style="width: 15px;" class="form-check-input"
+									type="radio" name="genderRadio" id="femaleRadio" value="F">Female
+							</div>
+							<div class="form-check form-check-inline">
+								<input type="radio" class="form-check-input"
+									style="width: 15px;" name="genderRadio" id="otherRadio"
+									value="O">Other
+							</div>
+							<div class="form-check form-check-inline">
+								<input type="hidden" id="genderInput" name="genderInput"
+									value="M">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<input type="Password" class="form-control form-control-sm"
+									id="pwdInput" name="pwdInput" placeholder="Enter your password"
+									onkeyup="validatePassword();" required>
+							</div>
+							<div class="form-group col-md-6">
+								<input type="Password" class="form-control form-control-sm"
+									id="pwdRptInput" name="pwdRptInput"
+									placeholder="Re-type your password"
+									onkeyup="validatePassword();" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control form-control-sm"
+									name="stateInput" placeholder="Enter the State you are in">
+							</div>
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control form-control-sm"
+									name="cityInput" placeholder="Enter the City you are in">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control form-control-sm"
+									name="phoneInput" placeholder="Enter your Mobile number">
+							</div>
+							<div class="form-group col-md-6">
+								<input type="text" class="form-control form-control-sm"
+									id="dobInput" name="dobInput" placeholder="Date of Birth"
+									onfocus="(this.type='date')" required>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group form-inline col-md-2">
+								<label class="col-form-label" for="intSelect"><b>Upload
+										your Photo:</b>&nbsp;&nbsp;</label>
+							</div>
+							<div class="form-group form-inline col-md-4">
+								<input type="file" class="form-control-file form-control-sm"
+									name="dpInput" id="dpInput" onChange="validateFileType()"
+									accept="image/x-png,image/jpeg" required="required" />
+							</div>
+							<div class="form-group form-inline ">
+								<label class="col-form-label" for="intSelect">&nbsp;&nbsp;<b>Looking
+										for:</b>&nbsp;&nbsp;&nbsp;
+								</label>
+							</div>
+							<div class="form-group form-inline col-md-2	">
+								<select class="form-control form-control-sm mb-2" id="intSelect">
+									<option value="M">Male</option>
+									<option value="F">Female</option>
+									<option value="O">Others</option>
+								</select> <input type="hidden" id="iGenderInput" name="iGenderInput"
+									value="M">
+							</div>
+						</div>
+						<div class="alert alert-danger collapse" id="signupAlert"
+							role="alert"></div>
+						<div class="text-center">
+							<button type="reset" class="btn btn-primary mt-3"
+								onclick="Resetform()">Reset</button>
+							<button type="submit" class="btn btn-primary mt-3">Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

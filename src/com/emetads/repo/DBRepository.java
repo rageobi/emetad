@@ -1,13 +1,9 @@
 package com.emetads.repo;
-import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
 import com.emetads.util.DBUtil;
 
@@ -36,7 +32,22 @@ private Connection dbConnection;
 		}
 		return false;
 	}
-	
+	public ResultSet fetchUserDetails(String email) {
+		ResultSet result=null;
+		try {
+			PreparedStatement prepStatement = dbConnection.prepareStatement("Select * from usertable where email= ?");
+			prepStatement.setString(1,email);
+			result = prepStatement.executeQuery();
+			if (result != null) {	
+				while (result.next()) {
+					return result;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	public int signupUser(String fName,String lName, String Email, String gender, String password, String state, String city, String mobileNumber, Date dob, String iGender, InputStream inputsream) {
 		try {
 			PreparedStatement prepStatement = dbConnection.prepareStatement("INSERT INTO usertable (EMAIL,create_date,last_name,first_name,city,state,phone,dob,gender,interested_in,password,dp_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
