@@ -2,6 +2,9 @@ package com.emetads.controller;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
 
@@ -19,7 +22,10 @@ public class User {
 	private String gender;
 	private String intrestedIn;
 	private InputStream displayPicture;
-
+	private String description;
+	public User() {
+		
+	}
 	public User(ResultSet result) throws SQLException {
 		super();
 		this.userID = result.getInt(1);
@@ -35,6 +41,20 @@ public class User {
 		this.intrestedIn = result.getString(11);
 		this.password = result.getString(12);
 		this.displayPicture = result.getBlob(13).getBinaryStream();
+		this.description = result.getString(14);
+	}
+	
+	public String getBase64Image(InputStream displayPicture) throws IOException {
+		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+		byte[] buffer = new byte[4096];
+		int bytesRead = -1;
+
+		while ((bytesRead = displayPicture.read(buffer)) != -1) {
+			outputStream.write(buffer, 0, bytesRead);
+		}
+
+		byte[] imageBytes = outputStream.toByteArray();
+		return Base64.getEncoder().encodeToString(imageBytes);
 	}
 
 	public InputStream getdisplayPicture() {
@@ -83,6 +103,13 @@ public class User {
 
 	public void setIntrestedIn(String intrestedIn) {
 		this.intrestedIn = intrestedIn;
+	}
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getCity() {

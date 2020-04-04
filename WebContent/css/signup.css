@@ -20,7 +20,13 @@ body {
 	color: #383d41;
 	cursor: pointer;
 }
-
+.form-row textarea {
+	border-radius: 1rem;
+	background: #f8f9fa;
+	font-weight: bold;
+	color: #383d41;
+	cursor: pointer;
+}
 .signup-left {
 	text-align: center;
 	color: #fff;

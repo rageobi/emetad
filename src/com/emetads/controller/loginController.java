@@ -38,19 +38,20 @@ public class loginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("emailInput");
 		String password = request.getParameter("pwdInput");
 
 		if (userRepository.validateUserCredentials(email, password)) {
+			// forward the request to Main Servlet
+
 			HttpSession session = request.getSession(true);
 			User user = null;
-			ResultSet result = userRepository.fetchUserDetails(email);
+			ResultSet userDetailsResults = userRepository.fetchUserDetails(email);
 			try {
-				user = new User(result);
-				user.getdisplayPicture();
+				user = new User(userDetailsResults);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -65,13 +66,10 @@ public class loginController extends HttpServlet {
 
 			byte[] imageBytes = outputStream.toByteArray();
 			String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-
 			session.setAttribute("user", user);
 			session.setAttribute("DisplayPic", base64Image);
-
-			session.setMaxInactiveInterval(30 * 60);
-			String encodedURL = response.encodeRedirectURL("main.jsp");
-			response.sendRedirect(encodedURL);
+			RequestDispatcher reqDispatcher = request.getRequestDispatcher("mainController");
+			reqDispatcher.forward(request, response);
 		} else if (userRepository.checkUserPresence(email)) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
 			PrintWriter out = response.getWriter();
@@ -90,7 +88,7 @@ public class loginController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
