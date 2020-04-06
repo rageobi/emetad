@@ -45,7 +45,6 @@ public class loginController extends HttpServlet {
 		String password = request.getParameter("pwdInput");
 
 		if (userRepository.validateUserCredentials(email, password)) {
-			// forward the request to Main Servlet
 
 			HttpSession session = request.getSession(true);
 			User user = null;
@@ -73,13 +72,12 @@ public class loginController extends HttpServlet {
 		} else if (userRepository.checkUserPresence(email)) {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
 			PrintWriter out = response.getWriter();
-			out.println("<div class=\"text-center\"><font color=red>Wrong Password entered</font></div>");
+			out.println("<div class=\"alert alert-danger\" id=\"sd\"role=\"alert\" align=\"center\">Wrong Password entered</div>");
 			rd.include(request, response);
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/signup.html");
 			PrintWriter out = response.getWriter();
-			out.println(
-					"<div class=\"text-center\"><font color=red>Looks like you don't have an account! Please go ahead and signup below</font></div>");
+			out.println("<div class=\"alert alert-danger\" id=\"sd\"role=\"alert\" align=\"center\">Looks like you don't have an account! Please go ahead and signup below</div>");
 			rd.include(request, response);
 		}
 	}

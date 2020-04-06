@@ -37,6 +37,7 @@ private Connection dbConnection;
 		}
 		return false;
 	}
+	
 	public ResultSet fetchUserDetails(String email) {
 		ResultSet result=null;
 		PreparedStatement prepStatement=null;
@@ -53,6 +54,37 @@ private Connection dbConnection;
 			e.printStackTrace();
 		}
 		return result;
+	}
+	public User fetchUserDetailswithID(String userID) {
+		ResultSet result=null;
+		PreparedStatement prepStatement=null;
+
+		User user = new User();
+		try {
+			prepStatement = dbConnection.prepareStatement("Select * from usertable where user_id= ?");
+			prepStatement.setString(1,userID);
+			result = prepStatement.executeQuery();
+			if (result != null) {	
+				while (result.next()) {
+					user.setCity(result.getString(6));
+					user.setCreatedDate(result.getDate(3));
+					user.setdisplayPicture(result.getBlob(13).getBinaryStream());
+					user.setDob(result.getDate(9));
+					user.setFirstname(result.getString(5));
+					user.setGender(result.getString(10));
+					user.setIntrestedIn(result.getString(11));
+					user.setLastname(result.getString(4));
+					user.setPhone(result.getString(8));
+					user.setState(result.getString(7));
+					user.setUserID(result.getInt(1));
+					user.setEmail( result.getString(2));
+					user.setDescription(result.getString(14));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 	public List<User> getUsersInList(String gender, String intIn, int userID) {
 		ResultSet result=null;
@@ -171,9 +203,9 @@ private Connection dbConnection;
 		} 
 		return 0;
 	}
-	public int updateUser(String fName,String lName, String Email, String gender, String state, String city, String mobileNumber, Date dob, String iGender, InputStream inputsream, String description, String userID) {
+	public int updateUser(String fName,String lName, String Email, String gender, String state, String city, String mobileNumber, Date dob, String iGender, InputStream inputsream, String description, String userID, String password) {
 		try {
-			PreparedStatement prepStatement = dbConnection.prepareStatement("update usertable set EMAIL=?,create_date=?,last_name=?,first_name=?,city=?,state=?,phone=?,dob=?,gender=?,interested_in=?,dp_image=?,description=? where user_id=?");
+			PreparedStatement prepStatement = dbConnection.prepareStatement("update usertable set EMAIL=?,create_date=?,last_name=?,first_name=?,city=?,state=?,phone=?,dob=?,gender=?,interested_in=?,dp_image=?,description=?, password=? where user_id=?");
 			
 			prepStatement.setString(1, Email);
 			prepStatement.setDate(2, new java.sql.Date(dob.getTime()));
@@ -191,7 +223,9 @@ private Connection dbConnection;
 	            }
 			//prepStatement.setInt(12, 1);
 			 prepStatement.setString(12, description);
-			 prepStatement.setString(13, userID);
+
+			 prepStatement.setString(13, password);
+			 prepStatement.setString(14, userID);
 			return prepStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

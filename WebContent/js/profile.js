@@ -32,7 +32,22 @@ function validateFileType() {
     document.getElementById("dpInput").value = "";
   }
 }
+function validatePassword() {
+	  debugger;
+	  var enteredPass = document.getElementById('pwdInput');
+	  var reEnteredPass = document.getElementById('pwdRptInput');
+	  var right = "#66cc66";
+	  var wrong = "#ff6666";
+	  if (reEnteredPass.value) {
+	    if (enteredPass.value == reEnteredPass.value) {
+	      reEnteredPass.style.borderColor = right;
+	      reEnteredPass.style.borderWidth = "3px";
 
+	    } else {
+	      reEnteredPass.style.borderColor = wrong;
+	    }
+	  }
+	}
 function validate() {
 	  debugger;
   document.getElementById("fgenderInput").value = document.getElementById('genderInput').value;
@@ -58,6 +73,13 @@ function validate() {
     msg += "<li>Date of Birth should be lesser than todays date</li>";
     alarm = false;
   }
+  if (document.profileForm.pwdInput.value && document.profileForm.pwdInput.value != document.profileForm.pwdRptInput.value) {
+	    event.preventDefault();
+	    $('#signupAlert').fadeIn();
+	    document.profileForm.pwdRptInput.focus();
+	    msg += "<li>Passwords don't match</li>";
+	    alarm = false;
+	  }
   if (!alarm) {
     document.getElementById("signupAlert").innerHTML = msg;
     return false;

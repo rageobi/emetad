@@ -1,11 +1,7 @@
 package com.emetads.controller;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +37,7 @@ public class mainController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		User user = null;
+		User user = null	;
 		//ResultSet userDetailsResults = userRepository.fetchUserDetails(email);
 		ArrayList<User> userIntList = new ArrayList<User>();
 		user = (User)session.getAttribute("user");
@@ -50,7 +46,7 @@ public class mainController extends HttpServlet {
 		session.setAttribute("userInts", userIntList);
 		session.setMaxInactiveInterval(30 * 60);
 		String encodedURL = null;
-		if (session.getAttribute("page") == "profile") {
+		if (request.getAttribute("page") == "profile") {
 			request.setAttribute("page", "");
 			encodedURL = response.encodeRedirectURL("profile.jsp");
 		} else {

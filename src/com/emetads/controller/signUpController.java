@@ -64,7 +64,8 @@ public class signUpController extends HttpServlet {
 			//request.getSession().setAttribute(additionalMessage, "Not successfully signedup. Please try again");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
 			PrintWriter out= response.getWriter();
-			out.println("<div class=\"text-center\"><font color=red>Email Id exists. Please login</font></div>");
+
+			out.println("<div class=\"alert alert-danger\" id=\"alert\"role=\"alert\" align=\"center\">Email exists. Please login</div>");
 			rd.include(request, response);}
 		else {
 		int result = userRepository.signupUser(firstName,lastName,email,gender,password,state,city,mobileNumber,dobD,iGender,inputStream,description);
@@ -73,7 +74,7 @@ public class signUpController extends HttpServlet {
 			//request.getSession().setAttribute(additionalMessage, "Not successfully signedup. Please try again");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/signup.html");
 			PrintWriter out= response.getWriter();
-			out.println("<div class=\"text-center\"><font color=red>Not successfully signedup. Please try again</font></div>");
+			out.println("<div class=\"alert alert-danger\" id=\"alert\"role=\"alert\" align=\"center\">Not successfully signedup. Please try again</div>");
 			rd.include(request, response);
 		}
 		else {

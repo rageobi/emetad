@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.emetads.repo.DBRepository;
@@ -40,11 +41,12 @@ public class profileController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		User user = null;
 		String firstName= request.getParameter("fnameInput");
 		String lastName= request.getParameter("lnameInput");
 		String email= request.getParameter("emailInput");
 		String gender= request.getParameter("fgenderInput");
-		//String password= request.getParameter("pwdInput");
+		String password= request.getParameter("pwdInput");
 		String state= request.getParameter("stateInput");
 		String city= request.getParameter("cityInput");
 		String mobileNumber= request.getParameter("phoneInput");
@@ -55,21 +57,27 @@ public class profileController extends HttpServlet {
 		description=description.replaceAll("\\W"," ");
 		description=description.replaceAll("( )+", " ");
 		InputStream inputStream = null;
+		InputStream decInputStream = null;
         Part filePart = request.getPart("dpInput");
-        inputStream = filePart.getInputStream();
-        
+        if (filePart != null) {
+        	inputStream = filePart.getInputStream();
+        }
+        else {
+        user= userRepository.fetchUserDetailswithID(userID);
+        inputStream= user.getdisplayPicture();
+        }
 		Date dobD=Date.valueOf(dob);
-		int result = userRepository.updateUser(firstName,lastName,email,gender,state,city,mobileNumber,dobD,iGender,inputStream,description,userID);
+		int result = userRepository.updateUser(firstName,lastName,email,gender,state,city,mobileNumber,dobD,iGender,inputStream,description,userID,password);
 		if (result==0) {
-			//String additionalMessage = null;
-			//request.getSession().setAttribute(additionalMessage, "Not successfully signedup. Please try again");
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/profile.jsp");
 			PrintWriter out= response.getWriter();
-			out.println("<div class=\"text-center\"><font color=red>Not successfully updated. Please try again</font></div>");
+			out.println("<div class=\"alert alert-danger\" id=\"sd\"role=\"alert\" align=\"center\">Not successfully updated. Please try again</div>");
 			rd.include(request, response);
 		}
 		else {
-
+			user = userRepository.fetchUserDetailswithID(userID);
+			HttpSession session = request.getSession();
+			session.setAttribute("user", user);
 			request.setAttribute("email", email);
 			request.setAttribute("page", "profile");
 			RequestDispatcher reqDispatcher = request.getRequestDispatcher("mainController");

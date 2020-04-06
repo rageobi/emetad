@@ -7,6 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>Profile</title>
+<script src="js/profile.js" type="text/javascript"></script>
 <link
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -14,27 +15,17 @@
 	crossorigin="anonymous">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="js/profile.js" type="text/javascript"></script>
-<style type="text/css">
-body {
-	background: rgb(237, 131, 131);
-	background: linear-gradient(90deg, rgba(237, 131, 131, 1) 0%,
-		rgba(178, 199, 255, 1) 95%);
-}
 
-.card:hover {
-	box-shadow: -1px 9px 40px -12px rgba(0, 0, 0, 0.75);
-}
-</style>
+<link href="css/main.css" rel="stylesheet">
+
 </head>
 <body>
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<a class="navbar-brand" href="#">Emetad.</a>
+			<a class="navbar-brand" href="main">Emetad.</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
 				aria-expanded="false" aria-label="Toggle navigation">
@@ -47,14 +38,15 @@ body {
 					<li class="nav-item active"><a class="nav-link"
 						href="#	">Profile <span class="sr-only">(current)</span></a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">About Us</a>
-					</li>
 				</ul>
 			</div>
-			<form class="form-inline">
+			<form class="form-inline" action="search" method="post" id="searchForm">
 				<input class="form-control mr-sm-2" type="search"
-					placeholder="Search" aria-label="Search">
-				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					placeholder="Search" id="searchInput" name="searchInput" aria-label="Search">
+				<button id="searchBtn" class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+			<form class="form-inline" id="logOut" action="logout" method="POST">
+				<button id="logOutBtn" class="btn btn-outline-danger ml-4" type="submit">Logout</button>
 			</form>
 		</nav>
 	</header>
@@ -65,6 +57,9 @@ body {
 			return;
 		}
 		%>
+		<div class="alert alert-success" role="alert">
+  This is a success alert—check it out!
+</div>
 		<br>
 		<link
 			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
@@ -121,7 +116,7 @@ body {
 										<div class="form-group col-md-6">
 											<label for="emailInput">Email</label> <input type="text"
 												class="form-control" id="emailInput" name="emailInput"
-												value=${user.email}>
+												value=${user.email} disabled>
 										</div>
 										<div class="form-group col-md-6">
 											<label for="genderInput">Gender</label> <select
@@ -147,6 +142,21 @@ body {
 												value=${user.city}>
 										</div>
 									</div>
+									<div class="form-row">
+									<div class="form-group col-md-6">
+										<label for="pwdInput">Change password</label>
+										<input type="Password" class="form-control form-control-sm"
+											id="pwdInput" name="pwdInput" placeholder="Enter your password"
+											onkeyup="validatePassword();" value=${user.password}>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="pwdRptInput">Re-Enter Changed password</label>
+										<input type="Password" class="form-control form-control-sm"
+											id="pwdRptInput" name="pwdRptInput"
+											placeholder="Re-type your password"
+											onkeyup="validatePassword();" value=${user.password}>
+									</div>
+								</div>
 									<div class="form-row">
 										<div class="form-group col-md-6">
 											<label for="phoneInput">Phone</label> <input type="text"
@@ -193,14 +203,15 @@ body {
 	</div>
 
 	<footer>
-
-		<script>
+		<%@ include file="footer.html" %>
+				<script>
 			$("ul li").on("click", function() {
 				$("li").removeClass("active");
 				$(this).addClass("active");
 			});
 
-			$(btnChangePhoto).on("click", function() {
+			$('#btnChangePhoto').on("click", function() {
+				debugger;
 				$(dpInput).click();
 			});
 			$(document).ready(function() {

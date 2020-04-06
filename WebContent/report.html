@@ -3,8 +3,348 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Report page</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
 </head>
-<body>
+<style>
+ul{
 
+    text-align: justify;
+    font-size:13px;
+
+}
+h2{
+	font-size:18px;
+}
+body{
+background:#beffa4;
+}
+</style>
+<body>
+<header>
+		<nav class="navbar navbar-light" style="background-color: #cdffb9;">
+			<a class="navbar-brand" href="index.html">Emetad.</a>
+			
+			<form class="form-inline" id="goBack" action="index.html" method="POST">
+				<button id="goBackBtn" class="btn btn-outline-primary ml-4" type="submit">Go Back</button>
+			</form>
+		</nav>
+	</header>
+<div class="row">
+<div class="col-md-5">
+<br>
+	<h2>Signup page - signup.html</h2>
+	<ul>
+		<li>Frontend and browser validations</li>
+		<ul>
+			<li>Required fields are filled</li>
+			<li>Email has '@' as a character in between alphanumeric string
+				combination</li>
+			<li>On-keyup event on password inputs: password and re-enter password fields text match
+				indication</li>
+			<li>Entered DOB is lesser than today</li>
+			<li>Upload photo file restricted to certain types on upload</li>
+		</ul>
+		<li>Backend validations - On clicking the submit button</li>
+		<ul>
+			<li>If the user email exist in the DB and we alert the user in
+				the same page</li>
+			<li>If the user email doesn't exist in DB the application user
+				is created and the application proceeds on redirection to the login
+				page of the application for user login</li>
+		</ul>
+	</ul>
+		<h2>Login page - login.html</h2>
+	<ul>
+		<li>Frontend and browser validations</li>
+		<ul>
+			<li>Required fields are filled</li>
+		</ul>
+		<li>Backend validations - On clicking the submit button</li>
+		<ul>
+			<li>If email ID doesn't exist in DB there is a redirect to
+				signup page with an alert on top</li>
+			<li>If email ID exists in DB the application proceeds on
+				redirection to the main page of the application(main.jsp) by
+				creating a session indication a successful login</li>
+		</ul>
+	</ul>
+</div>
+ <div id="carouselSignupandLogin" class="carousel col-md-7 slide mt-12"
+		data-ride="carousel"><br>
+		<ol class="carousel-indicators">
+			<li data-target="#carouselSignupandLogin" data-slide-to="0"
+				class="active"></li>
+			<li data-target="#carouselSignupandLogin" data-slide-to="1"></li>
+			<li data-target="#carouselSignupandLogin" data-slide-to="2"></li>
+			<li data-target="#carouselSignupandLogin" data-slide-to="3"></li>
+		</ol>
+		<div class="carousel-inner">
+
+			<div class="carousel-item active">
+				<img class="d-block w-100"
+					src="content/img/rptss/signupbrowserlevel.png" alt="Second slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Sign up page</h5>
+					<p>Validations done at browser level</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100"
+					src="content/img/rptss/signupserverlevel.png" alt="Third slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Sign up page</h5>
+					<p>Validations done at server level</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100"
+					src="content/img/rptss/loginEmailAbsent.png" alt="fourth slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Login page</h5>
+					<p>Validations done at server level- No user identified</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100" src="content/img/rptss/loginWrongCred.png"
+					alt="fifth slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Login page</h5>
+					<p>Validations done at server level - Wrong password</p>
+				</div>
+			</div>
+		</div>
+		<a class="carousel-control-prev" href="#carouselSignupandLogin"
+			role="button" data-slide="prev"> <span
+			class="carousel-control-prev-icon" aria-hidden="true"></span>
+		</a> <a class="carousel-control-next" href="#carouselSignupandLogin"
+			role="button" data-slide="next"> <span
+			class="carousel-control-next-icon" aria-hidden="true"></span>
+		</a>
+</div>
+<div id="carouselMain" class="carousel col-md-7 slide mt-12"
+		data-ride="carousel"><br>
+		<ol class="carousel-indicators">
+			<li data-target="#carouselMain" data-slide-to="4"
+				class="active"></li>
+			<li data-target="#carouselMain" data-slide-to="5"></li>
+			<li data-target="#carouselMain" data-slide-to="6"></li>
+		</ol>
+		<div class="carousel-inner">
+
+			<div class="carousel-item active">
+				<img class="d-block w-100" src="content/img/rptss/mainCards-1.png"
+					alt="sixth slide">
+				<div class="carousel-caption d-none d-md-block"
+					style="color: black;">
+					<h5>Main page</h5>
+					<p>Cards displayed based on user interested gender</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100" src="content/img/rptss/mainCards-2.png"
+					alt="seventh slide">
+				<div class="carousel-caption d-none d-md-block"
+					style="color: black;">
+					<h5>Main page</h5>
+					<p>Like indicator</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100" src="content/img/rptss/emailModal.png"
+					alt="Eighth slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Main page - Email Modal</h5>
+					<p>Email Modal on match of users - "Liker" and "Likee"</p>
+				</div>
+			</div>
+		</div>
+		<a class="carousel-control-prev" href="#carouselMain"
+			role="button" data-slide="prev"> <span
+			class="carousel-control-prev-icon" aria-hidden="true"></span>
+		</a> <a class="carousel-control-next" href="#carouselMain"
+			role="button" data-slide="next"> <span
+			class="carousel-control-next-icon" aria-hidden="true"></span>
+		</a>
+</div>
+<div class="col-md-5">
+	<br>
+	<h2>Main page - main.jsp</h2>
+	<ul>
+		<li>Populates user cards with information stored in the database
+		</li>
+
+		<li>When there is a match as an user clicks the "Like User"
+			button, there is a modal shown asking user to enter message to send
+			to the other user</li>
+		<li>The application uses JavaMail with a lot of backend sourced from
+			from <a href="https://www.codejava.net/java-ee/jsp/sending-e-mail-with-jsp-servlet-and-javamail"> here</a>
+			and adapted to the the application requirement to send the message as
+			email. The sender wouldn't know the receivers email. However, the
+			receiver would be notified with the senders name and email. They can
+			wish to contact back if interested still.</li>
+
+		<li>The java mail uses gmail smtp with the credential and
+			connection details/properties stored in web.xml</li>
+		<li>The applications social contact icon in the footer are
+			present in this page, profile.jsp and search.jsp pages</li>
+	</ul>
+</div><br>
+<div class="col-md-5"><br>
+	<h2>Profile page - profile.jsp</h2>
+	<ul>
+		<li>Populates user details from the DB, which could be modified
+			by the user</li>
+
+		<li>The validation works similar to signup page validation</li>
+		<li>One known issue in this page which is not fixed(due to time
+			constraints :( ) is the user has to upload an image everytime the
+			profile form is submitted. Else, the update fails.</li>
+	</ul>
+	<h2>Search page - search.jsp</h2>
+	<ul>
+		<li>There is a search input field in headers of all the logged in
+			pages, which searches for the string entered and filters out the user
+			lists for display</li>
+
+		<li>This is a search filtered main.jsp view</li>
+	</ul>
+</div>
+
+<div id="carouselProfileandSearch" class="carousel col-md-7 slide mt-12"
+		data-ride="carousel"><br>
+		<ol class="carousel-indicators">
+			<li data-target="#carouselProfileandSearch" data-slide-to="7"
+				class="active"></li>
+			<li data-target="#carouselProfileandSearch" data-slide-to="8"></li>
+		</ol>
+		<div class="carousel-inner">
+
+			<div class="carousel-item active">
+				<img class="d-block w-100" src="content/img/rptss/ProfileCard.png"
+					alt="sicarouselProfileandSearchth slide">
+				<div class="carousel-caption d-none d-md-block"
+					style="color: black;">
+					<h5>Profile page</h5>
+					<p>A simple profile form card</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img class="d-block w-100" src="content/img/rptss/SearchDogResults.png"
+					alt="Eighth slide">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Search page</h5>
+					<p>Search results for "Dog". Application searches for name,
+						location or the about field for the text</p>
+				</div>
+			</div>
+		</div>
+		<a class="carousel-control-prev" href="#carouselProfileandSearch"
+			role="button" data-slide="prev"> <span
+			class="carousel-control-prev-icon" aria-hidden="true"></span>
+		</a> <a class="carousel-control-next" href="#carouselProfileandSearch"
+			role="button" data-slide="next"> <span
+			class="carousel-control-next-icon" aria-hidden="true"></span>
+		</a>
+</div></div>
+<hr>
+<h1>Dummy Login Credentials</h1>
+<div class ="row">
+<div class="col-md-1">
+<p><i>Username:</i>
+</div><div class="col-md-1"><p><i>abinanthan007@gmail.com</i></p></div></div>
+<div class ="row">
+<div class="col-md-1">
+<p><i>Password:</i>
+</div><div class="col-md-1"><p><i>as</i></p></div></div>
+<hr>
+<div><h1>SQL Queries</h1></div>
+<div class ="row">
+<div class="col-md-6">
+	<h3>USERTABLE</h3>
+	<pre>
+--Create Table
+  CREATE TABLE usertable 
+   (	USER_ID NUMBER(38,0) NOT NULL ENABLE, 
+	EMAIL NVARCHAR2(50) NOT NULL ENABLE, 
+	CREATE_DATE DATE DEFAULT sysdate NOT NULL ENABLE, 
+	LAST_NAME NVARCHAR2(20) NOT NULL ENABLE, 
+	FIRST_NAME NVARCHAR2(20) NOT NULL ENABLE, 
+	CITY NVARCHAR2(20), 
+	STATE NVARCHAR2(20), 
+	PHONE NVARCHAR2(20), 
+	DOB DATE NOT NULL ENABLE, 
+	GENDER VARCHAR2(1 BYTE) NOT NULL ENABLE, 
+	INTERESTED_IN VARCHAR2(1 BYTE) NOT NULL ENABLE, 
+	PASSWORD NVARCHAR2(50) NOT NULL ENABLE, 
+	DP_IMAGE BLOB, 
+	DESCRIPTION NVARCHAR2(250), 
+	 CONSTRAINT usertable_pk PRIMARY KEY (USER_ID)) ;
+	 
+ --Create sequence for User ID
+CREATE SEQUENCE USER_SEQ_EMETAD START WITH 1;
+-- Creating Trigger and enabling it for User ID sequence
+  CREATE OR REPLACE TRIGGER USER_BIR_EMETAD 
+BEFORE INSERT ON usertable 
+FOR EACH ROW
+BEGIN
+  SELECT USER_SEQ_EMETAD.NEXTVAL
+  INTO   :new.USER_ID
+  FROM   dual;
+END;
+
+ALTER TRIGGER USER_BIR_EMETAD ENABLE;
+ 
+--Creating Trigger and enabling it for automated sysdate
+--col value for create_date for new row
+
+  CREATE OR REPLACE TRIGGER DATE_TRIGGER_EMETAD 
+  BEFORE INSERT OR UPDATE ON usertable
+  FOR EACH ROW
+BEGIN
+  :new.create_date := sysdate;
+END;
+
+ALTER TRIGGER DATE_TRIGGER_EMETAD ENABLE;
+	</pre></div><br>
+
+	<div class="col-md-6">
+		<h3>EMETADUSERLIKES</h3>
+	<pre>
+--Create Table
+  CREATE TABLE EMETADUSERLIKES 
+   (	LIKER_USER_ID NUMBER(38,0) NOT NULL ENABLE, 
+	LIKEE_USER_ID NUMBER(38,0) NOT NULL ENABLE, 
+	 CONSTRAINT FK_LIKER FOREIGN KEY (LIKER_USER_ID)
+	  REFERENCES USERTABLE (USER_ID) ENABLE, 
+	 CONSTRAINT FK_LIKEE FOREIGN KEY (LIKEE_USER_ID)
+	  REFERENCES USERTABLE (USER_ID) ENABLE
+   )
+	
+	</pre>
+</div>
+	
+	</div>
+	<footer>
+		<nav class="navbar navbar-light" style="background-color: #cdffb9;">
+			
+			<form class="form" id="goBack" action="index.html" method="POST">
+				<button id="goBackBtn" class="btn btn-outline-primary ml-4" type="submit">Go Back</button>
+			</form>
+		</nav>
+	</footer>
 </body>
 </html>
