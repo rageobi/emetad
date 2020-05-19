@@ -7,14 +7,14 @@
 - On-keyup event on password inputs: password and re-enter password fields text match indication
 - Entered DOB is lesser than today
 - Upload photo file restricted to certain types on upload
-- Backend validations - On clicking the submit button
+### Backend validations - On clicking the submit button
 - If the user email exist in the DB and we alert the user in the same page
 - If the user email doesn't exist in DB the application user is created and the application proceeds on redirection to the login page of the application for user login
 
 ## Login page - login.html
 ### Frontend and browser validations
 - Required fields are filled
-- Backend validations - On clicking the submit button
+### Backend validations - On clicking the submit button
 - If email ID doesn't exist in DB there is a redirect to signup page with an alert on top
 - If email ID exists in DB the application proceeds on redirection to the main page of the application(main.jsp) by creating a session indication a successful login
 
